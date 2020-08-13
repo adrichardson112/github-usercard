@@ -60,3 +60,69 @@ const followersArray = [];
     bigknell
 */
 
+axios 
+
+const primeUser = 'adrichardson112';
+const cards = document.querySelector('.cards');
+
+const friendsArray = [
+  "Jr08151",
+  "Stratified",
+  "KirstenS13",
+  "markanator",
+  "amberchunn",
+];
+
+
+function gitHubUser (user) {
+  const card = document.createElement("div");
+  const userImg = document.createElement("img");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const link = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  name.textContent = user.data.name;
+  username.textContent = user.data.login;
+  location.textContent = `Location: ${user.data.location}`;
+  profile.textContent = `Profile: `;
+  link.href = user.data.html_url;
+  link.textContent = user.data.html_url;
+  followers.textContent = `Followers: ${user.data.followers}`;
+  following.textContent = `Following: ${user.data.following}`;
+  bio.textContent = `Bio: ${user.data.bio}`;
+  userImg.src = user.data.avatar_url;
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  username.classList.add("username");
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  card.appendChild(name);
+  card.appendChild(username);
+  card.appendChild(location);
+  card.appendChild(profile);
+  profile.appendChild(link);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  cards.prepend(card);
+
+  if (user.data.location === null) {
+    location.textContent = "Location not Kown!";
+ } 
+ if(user.data.bio === null) {
+   loctation.textContent = "Bio not known!";
+
+
+ }
+ return card;
+}
+
