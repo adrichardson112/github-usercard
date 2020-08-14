@@ -29,8 +29,6 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -104,7 +102,7 @@ function createGitCard(object) {
   name.textContent = object.name;
   username.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profile.textContent = `Profile: `;
+  profile.textContent = `Profile: ${object.profile}`;
   link.href = object.html_url;
   link.textContent = object.html_url;
   followers.textContent = `Followers: ${object.followers}`;
