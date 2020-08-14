@@ -61,8 +61,14 @@ const followersArray = [];
 */
 
 axios 
+  .get("https://api.github.com/users/adrichardson112")
+  .then((res) => {
+    gitHubUser(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-const primeUser = 'adrichardson112';
 const cards = document.querySelector('.cards');
 
 const friendsArray = [
@@ -72,6 +78,18 @@ const friendsArray = [
   "markanator",
   "amberchunn",
 ];
+
+friendsArray.forEach((friend) => {
+  axios
+  .get(`https://api.github.com/users/${friend}`)
+  .then((res) => {
+    cards.append(gitHubUser(res));
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
 
 
 function gitHubUser (user) {
@@ -118,11 +136,14 @@ function gitHubUser (user) {
   if (user.data.location === null) {
     location.textContent = "Location not Kown!";
  } 
- if(user.data.bio === null) {
+  if(user.data.bio === null) {
    loctation.textContent = "Bio not known!";
+  }
+  
+  if(user.data.name === null) {
+    name.textContent = user.data.login;
+  }
 
-
- }
  return card;
 }
 
