@@ -60,18 +60,17 @@ const followersArray = [];
     bigknell
 */
 
-axios 
-  .get("https://api.github.com/users/adrichardson112")
-  .then((res) => {
-    gitHubUser(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 const cards = document.querySelector('.cards');
 
-const friendsArray = [
+axios.get("https://api.github.com/users/adrichardson112")
+  .then((resolve) => {
+    cards.appendChild(createGitCard(resolve.data));
+  })
+  .catch((reject) => {
+    console.log("Unable to get profile", reject);
+  });
+
+const followersArray = [
   "Jr08151",
   "Stratified",
   "KirstenS13",
@@ -79,20 +78,18 @@ const friendsArray = [
   "amberchunn",
 ];
 
-friendsArray.forEach((friend) => {
-  axios
-  .get(`https://api.github.com/users/${friend}`)
-  .then((res) => {
-    cards.append(gitHubUser(res));
-    console.log(res);
+followersArray.forEach((index) => {
+  axios.get(`https://api.github.com/users/${index}`)
+  .then((resolve) => {
+    cards.appendChild(createGitCard(resolve.data));
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((reject) => {
+    console.log("Unable to get profile", reject);
   });
 });
 
 
-function gitHubUser (user) {
+function createGitCard(object) {
   const card = document.createElement("div");
   const userImg = document.createElement("img");
   const name = document.createElement("h3");
@@ -104,16 +101,16 @@ function gitHubUser (user) {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
-  name.textContent = user.data.name;
-  username.textContent = user.data.login;
-  location.textContent = `Location: ${user.data.location}`;
+  name.textContent = object.name;
+  username.textContent = object.login;
+  location.textContent = `Location: ${object.location}`;
   profile.textContent = `Profile: `;
-  link.href = user.data.html_url;
-  link.textContent = user.data.html_url;
-  followers.textContent = `Followers: ${user.data.followers}`;
-  following.textContent = `Following: ${user.data.following}`;
-  bio.textContent = `Bio: ${user.data.bio}`;
-  userImg.src = user.data.avatar_url;
+  link.href = object.html_url;
+  link.textContent = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
+  userImg.src = object.avatar_url;
 
   card.classList.add("card");
   cardInfo.classList.add("card-info");
@@ -130,19 +127,6 @@ function gitHubUser (user) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-
-  cards.prepend(card);
-
-  if (user.data.location === null) {
-    location.textContent = "Location not Kown!";
- } 
-  if(user.data.bio === null) {
-   loctation.textContent = "Bio not known!";
-  }
-  
-  if(user.data.name === null) {
-    name.textContent = user.data.login;
-  }
 
  return card;
 }
