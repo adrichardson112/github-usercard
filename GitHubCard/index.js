@@ -90,6 +90,7 @@ followersArray.forEach((index) => {
 function createGitCard(object) {
   const card = document.createElement("div");
   const userImg = document.createElement("img");
+  const cardInfo =document.createElement("div");
   const name = document.createElement("h3");
   const username = document.createElement("p");
   const location = document.createElement("p");
@@ -111,7 +112,7 @@ function createGitCard(object) {
   userImg.src = object.avatar_url;
 
   card.classList.add("card");
-  cardInfo.classList.add("card-info");
+  cardInfo.classList.add("card-info")
   name.classList.add("name");
   username.classList.add("username");
 
